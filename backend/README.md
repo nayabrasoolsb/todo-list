@@ -22,6 +22,9 @@ npx prisma generate
 # Push Prisma schema to database (development only)
 npx prisma db push
 
+# Create & apply migrations (recommended for production)
+npx prisma migrate dev
+
 # Open Prisma Studio (database GUI)
 npx prisma studio
 ```
