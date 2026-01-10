@@ -12,6 +12,12 @@ datasource db {
   provider = "postgresql"
 }
 
+enum TodoStatus {
+  TODO
+  DONE
+}
+
+
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
@@ -19,3 +25,13 @@ model User {
   password  String
   createdAt DateTime @default(now())
 }
+
+model Todo {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String?
+  status      TodoStatus @default(TODO)
+  createdAt   DateTime   @default(now())
+  createdBy   String
+}
+
