@@ -23,25 +23,30 @@ export class TodoController {
   constructor(private readonly service: TodoService) {}
 
   @Post()
-  create(@Body() dto: CreateTodoDto, @Req() req) {
-    return this.service.create(dto, req.user.username);
+  createTodo(@Body() dto: CreateTodoDto, @Req() req) {
+    return this.service.createTodo(dto, req.user.username);
   }
 
   @Get()
-  findAll() {
-    return this.service.findAll();
+  findAllTodos() {
+    return this.service.findAllTodos();
   }
 
   @Patch(':id/status')
-  updateStatus(
+  updateTodoStatus(
     @Param('id') id: string,
     @Body() dto: UpdateTodoStatusDto,
   ) {
-    return this.service.updateStatus(Number(id), dto.status);
+    return this.service.updateTodoStatus(Number(id), dto.status);
+  }
+
+  @Get(':id')
+  findTodoById(@Param('id') id: string) {
+    return this.service.findTodoById(Number(id));
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.service.delete(Number(id));
+  deleteTodoById(@Param('id') id: string) {
+    return this.service.deleteTodoById(Number(id));
   }
 }
