@@ -5,7 +5,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("access_token");
+    sessionStorage.removeItem("access_token");
     navigate("/login", { replace: true });
   };
 
