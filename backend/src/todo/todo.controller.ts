@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -6,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -28,8 +30,20 @@ export class TodoController {
   }
 
   @Get()
-  findAllTodos() {
-    return this.service.findAllTodos();
+  findAllTodos(
+    @Query('page') page = '1',
+    @Query('limit') limit = '10',
+  ) {
+    const pageNumber = Number(page);
+    const limitNumber = Number(limit);
+
+    if (pageNumber < 1 || limitNumber < 1) {
+      throw new BadRequestException(
+        'page and limit must be positive numbers',
+      );
+    }
+
+    return this.service.findAllTodos(pageNumber, limitNumber);
   }
 
   @Patch(':id/status')
