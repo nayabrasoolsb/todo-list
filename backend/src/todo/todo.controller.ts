@@ -13,8 +13,10 @@ import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UpdateTodoStatusDto } from './dto/update-todo-status.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-
+@ApiTags('Todos')
+@ApiBearerAuth('access-token')
 @Controller('todo/api/v1/todos')
 @UseGuards(JwtAuthGuard)
 export class TodoController {
