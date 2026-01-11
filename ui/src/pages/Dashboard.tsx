@@ -125,104 +125,109 @@ export default function Dashboard() {
               <Loader />
             </Group>
           ) : (
-            <Box style={{ overflowX: 'auto' }}>
-              <Table
-                highlightOnHover
-                verticalSpacing="sm"
-                horizontalSpacing="md"
-                style={(theme) => ({
-                  'thead th': {
-                    backgroundColor: theme.colors.gray[0],
-                    color: theme.colors.gray[7],
-                    fontWeight: 600,
-                    fontSize: theme.fontSizes.sm,
-                    borderBottom: `1px solid ${theme.colors.gray[3]}`,
-                  },
+            <>
+              {todos.length > 0 ? <Box style={{ overflowX: 'auto' }}>
+                <Table
+                  highlightOnHover
+                  verticalSpacing="sm"
+                  horizontalSpacing="md"
+                  style={(theme) => ({
+                    'thead th': {
+                      backgroundColor: theme.colors.gray[0],
+                      color: theme.colors.gray[7],
+                      fontWeight: 600,
+                      fontSize: theme.fontSizes.sm,
+                      borderBottom: `1px solid ${theme.colors.gray[3]}`,
+                    },
 
-                  'tbody td': {
-                    borderBottom: `1px solid ${theme.colors.gray[2]}`,
-                  },
+                    'tbody td': {
+                      borderBottom: `1px solid ${theme.colors.gray[2]}`,
+                    },
 
-                  'th:first-of-type, td:first-of-type': {
-                    width: 120,
-                    textAlign: 'center',
-                  },
-                })}
-              >
-                <thead>
-                  <tr>
-                    <th>Status</th>
-                    <th>Title</th>
-                    <th>Created</th>
-                    <th>Created By</th>
-                    <th style={{ width: 60 }}>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {todos.map((todo) => (
-                    <tr key={todo.id}>
-                      <td>
-                        <Group justify="center">
-                          <Select
-                            size="xs"
-                            radius="md"
-                            w={120}
-                            data={[
-                              { value: 'TODO', label: 'TODO' },
-                              { value: 'IN_PROGRESS', label: 'IN PROGRESS' },
-                              { value: 'DONE', label: 'DONE' },
-                            ]}
-                            value={todo.status}
-                            onChange={(value) =>
-                              handleStatusChange(todo.id, value as TodoStatus)
-                            }
-                          />
-                        </Group>
-                      </td>
-
-                      <td>
-                        <Text ta="center" fw={500}>
-                          {todo.title}
-                        </Text>
-                      </td>
-
-                      <td>
-                        <Text ta="center" size="xs" c="dimmed">
-                          {dayjs(todo.createdAt).fromNow()}
-                        </Text>
-                      </td>
-
-                      <td>
-                        <Text ta="center" size="sm">
-                          {todo.createdBy}
-                        </Text>
-                      </td>
-
-                      <td>
-                        <Group justify="center">
-                          <ActionIcon
-                            color="red"
-                            variant="subtle"
-                            onClick={() => handleDeleteTodo(todo.id)}
-                            aria-label="Delete todo"
-                          >
-                            <IconTrash size={16} />
-                          </ActionIcon>
-                        </Group>
-                      </td>
-
+                    'th:first-of-type, td:first-of-type': {
+                      width: 120,
+                      textAlign: 'center',
+                    },
+                  })}
+                >
+                  <thead>
+                    <tr>
+                      <th>Status</th>
+                      <th>Title</th>
+                      <th>Created</th>
+                      <th>Created By</th>
+                      <th style={{ width: 60 }}>Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Box>
+                  </thead>
+                  <tbody>
+                    {todos.map((todo) => (
+                      <tr key={todo.id}>
+                        <td>
+                          <Group justify="center">
+                            <Select
+                              size="xs"
+                              radius="md"
+                              w={120}
+                              data={[
+                                { value: 'TODO', label: 'TODO' },
+                                { value: 'IN_PROGRESS', label: 'IN PROGRESS' },
+                                { value: 'DONE', label: 'DONE' },
+                              ]}
+                              value={todo.status}
+                              onChange={(value) =>
+                                handleStatusChange(todo.id, value as TodoStatus)
+                              }
+                            />
+                          </Group>
+                        </td>
+
+                        <td>
+                          <Text ta="center" fw={500}>
+                            {todo.title}
+                          </Text>
+                        </td>
+
+                        <td>
+                          <Text ta="center" size="xs" c="dimmed">
+                            {dayjs(todo.createdAt).fromNow()}
+                          </Text>
+                        </td>
+
+                        <td>
+                          <Text ta="center" size="sm">
+                            {todo.createdBy}
+                          </Text>
+                        </td>
+
+                        <td>
+                          <Group justify="center">
+                            <ActionIcon
+                              color="red"
+                              variant="subtle"
+                              onClick={() => handleDeleteTodo(todo.id)}
+                              aria-label="Delete todo"
+                            >
+                              <IconTrash size={16} />
+                            </ActionIcon>
+                          </Group>
+                        </td>
+
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </Box> : <div>
+                All todos are done!
+              </div>}
+            </>
+
           )}
         </Grid.Col>
       </Grid>
 
-      <Group justify="center" mt="lg">
+      {todos.length > 0 && <Group justify="center" mt="lg">
         <Pagination total={totalPages} value={page} onChange={setPage} />
-      </Group>
+      </Group>}
     </Container>
   );
 
