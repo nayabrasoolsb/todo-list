@@ -35,7 +35,7 @@ const Login = () => {
     try {
       const res = await api.post(LOGIN_URL, values);
       setMessage(res.data?.message);
-      sessionStorage.setItem("access_token", res.data.token);
+      sessionStorage.setItem("access_token", res.data.access_token);
       navigate("/dashboard");
     } catch (err) {
       if (axios.isAxiosError(err)) {
