@@ -11,6 +11,10 @@ import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
+    envFilePath:
+      process.env.NODE_ENV === 'docker'
+        ? '.env.docker'
+        : '.env.local',
     isGlobal: true,
   }), PrismaModule, AuthModule, UsersModule, TodoModule],
   controllers: [AppController, UsersController],
