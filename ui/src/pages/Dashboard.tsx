@@ -55,7 +55,7 @@ export default function Dashboard() {
       });
 
       setTodos(res.data.data);
-      setTotalPages(Math.ceil(res.data.total / PAGE_SIZE));
+      setTotalPages(res.data.meta.totalPages);
     } finally {
       setLoading(false);
     }
