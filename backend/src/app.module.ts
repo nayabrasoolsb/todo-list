@@ -7,11 +7,12 @@ import { UsersService } from './users/users.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
     isGlobal: true,
-  }), PrismaModule, AuthModule, UsersModule],
+  }), PrismaModule, AuthModule, UsersModule, TodoModule],
   controllers: [AppController, UsersController],
   providers: [AppService, UsersService],
 })

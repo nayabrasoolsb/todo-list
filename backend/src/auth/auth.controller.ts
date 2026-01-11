@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
-@Controller('auth')
+@Controller('todo/api/v1/auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
@@ -9,6 +9,7 @@ export class AuthController {
   login(
     @Body() body: { username: string; password: string },
   ) {
-    return this.authService.login(body.username, body.password);
+    const { username, password } = body;
+    return this.authService.login(username, password);
   }
 }
