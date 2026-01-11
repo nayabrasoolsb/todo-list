@@ -13,6 +13,12 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.enableCors({
+    origin: process.env.ALLOWED_ORIGIN?.split(","),
+    credentials: true,
+  });
+
   const logger = new Logger('Bootstrap');
 
   const config = new DocumentBuilder()
