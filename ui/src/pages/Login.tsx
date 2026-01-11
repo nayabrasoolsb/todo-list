@@ -85,6 +85,7 @@ const Login = () => {
             Don't have an account?{" "}
             <Anchor
               component="button"
+              type="button"
               size="sm"
               onClick={() => navigate("/register")}
             >
