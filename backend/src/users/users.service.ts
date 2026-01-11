@@ -8,8 +8,14 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async createUser(dto: CreateUserDto) {
-    const hashedPassword = await bcrypt.hash(dto.password, 10);
+    const pepper = process.env.PASSWORD_PEPPER!;
+    const saltRounds = 10;
 
+    const hashedPassword = await bcrypt.hash(
+      dto.password + pepper,
+      saltRounds,
+    );
+  
     return this.prisma.user.create({
       data: {
         name: dto.name,
@@ -26,4 +32,16 @@ export class UsersService {
       },
     });
   }
+
+async findByUsername(username: string) {
+  return this.prisma.user.findUnique({
+    where: { username },
+    select: {
+      id: true,
+      username: true,
+      password: true,
+    },
+  });
+}
+
 }
